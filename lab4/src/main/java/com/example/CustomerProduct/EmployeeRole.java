@@ -1,9 +1,3 @@
-/*
-2. public Product[] getListOfProducts(): returns an array that contains all the 
-products stored in the file named Products.txt. 
-3. public CustomerProduct[] getListOfPurchasingOperations(): returns an 
-array that contains all the purchasing operations stored in the file named 
-CustomersProducts.txt */
 package com.example.CustomerProduct;
 
 import java.io.*;

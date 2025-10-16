@@ -1,10 +1,5 @@
 package com.example.CustomerProduct;
 
-import java.io.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.util.ArrayList;
-
 public class EmployeeRole {
     private CustomerProductDatabase customerProductDatabase;
     private ProductDatabase productsDatabase;

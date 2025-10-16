@@ -31,6 +31,6 @@ public class EmployeeRole {
        
     }
     public CustomerProduct[] getListOfPurchasingOperations(){
-        return 
+        return customerProductDatabase.returnAllRecords().toArray(new CustomerProduct[0]);
     }
 }

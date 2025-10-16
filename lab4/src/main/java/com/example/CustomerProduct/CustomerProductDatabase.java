@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class CustomerProductDatabase {
+public class CustomerProductDatabase{
 
     private ArrayList<CustomerProduct> records;
     private String filename;

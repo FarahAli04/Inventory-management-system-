@@ -1,4 +1,4 @@
-package com.example;
+package com.example.CustomerProduct;
 
 public class Product {
     private String productID;

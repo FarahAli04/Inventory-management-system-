@@ -33,7 +33,7 @@ public class CustomerProductDatabase{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate purchaseDate = LocalDate.parse(recordStr[2], formatter);
                 boolean paid = Boolean.parseBoolean(recordStr[3]);
-                CustomerProduct cp = new CustomerProduct(customerSSN, productID, purchaseDate, paid);
+                CustomerProduct cp = new CustomerProduct(customerSSN, productID, purchaseDate);
                 this.records.add(cp);
             }
 
@@ -57,13 +57,9 @@ public class CustomerProductDatabase{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate purchaseDate = LocalDate.parse(recordStr[2], formatter);
         boolean paid = Boolean.parseBoolean(recordStr[3]);
-        CustomerProduct cp = new CustomerProduct(customerSSN, productID, purchaseDate, paid);
+        CustomerProduct cp = new CustomerProduct(customerSSN, productID, purchaseDate);
         return cp;
     }
 
-    public ArrayList<CustomerProduct> returnAllRecords()
-    {
-        
-    }
 
 }

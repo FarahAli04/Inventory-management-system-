@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class CustomerProductDatabase{
+public class CustomerProductDatabase {
 
     private ArrayList<CustomerProduct> records;
     private String filename;
@@ -109,14 +109,11 @@ public class CustomerProductDatabase{
         // in main ask for contains first, if it is false then there is no record but if there is then call get record
     }
 
-
-    public void insertRecord(CustomerProduct record)
-    {
+    public void insertRecord(CustomerProduct record) {
         this.records.add(record);
     }
 
-    public void deleteRecord(String key)
-    {
+    public void deleteRecord(String key) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         for (CustomerProduct x : records) {
             String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(formatter);

@@ -1,7 +1,6 @@
 package com.example.CustomerProduct;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class CustomerProduct {
     public static final String RED = "\u001B[31m";
@@ -20,8 +19,6 @@ public class CustomerProduct {
             this.customerSSN = customerSSN;
         }
         this.productID = productID;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.purchaseDate.format(formatter);
         this.purchaseDate = purchaseDate;
         this.paid = false;
     }

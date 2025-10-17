@@ -1,23 +1,7 @@
-/* public double returnProduct(String customerSSN, String productID, 
-LocalDate purchaseDate ,LocalDate returnDate): 
-Customers can return a product within 14 days of purchase. The method will 
-return -1 if: 
-• returnDate is earlier than purchaseDate 
-• The product is not listed in Products.txt. 
-• The string formed to be equal to 
-customerSSN+",",productID+","+purchaseDate (in the format DD- 
-MM-YYYY) is not listed in CustomersProducts.txt. 
-• More than 14 days have passed since the purchase date. 
-Otherwise, the method does the following: 
-• increments the quantity variable of the product whose product id 
-equals the parameter productID by one. 
-• removes the line representing the purchasing operation from the file 
-CustomersProducts.txt. 
-• updates the file Products.txt. 
-• returns the product's price.  */
 package com.example.CustomerProduct;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class EmployeeRole {
     private CustomerProductDatabase customerProductDatabase;
@@ -47,25 +31,73 @@ public class EmployeeRole {
     }
 
     public boolean purchaseProduct(String customerSSN, String productID, LocalDate purchaseDate) {
-       if(productsDatabase.contains(productID)){
-        Product product = productsDatabase.getRecord(productID);
-        if (product.getQuantity() == 0) {
+        if (productsDatabase.contains(productID)) {
+            Product product = productsDatabase.getRecord(productID);
+            if (product.getQuantity() == 0) {
+                return false;
+            } else {
+                int newQuantity = product.getQuantity();
+                newQuantity = newQuantity - 1;
+                product.setQuantity(newQuantity);
+                CustomerProduct newCustomerProduct = new CustomerProduct(customerSSN, productID, purchaseDate);
+                customerProductDatabase.insertRecord(newCustomerProduct);
+                customerProductDatabase.saveToFile();
+                productsDatabase.saveToFile();
+                return true;
+            }
+        } else
             return false;
-        }
-        else {
-           int newQuantity =  product.getQuantity();
-           newQuantity = newQuantity - 1;
-           product.setQuantity(newQuantity);
-           CustomerProduct newCustomerProduct = new CustomerProduct(customerSSN, productID, purchaseDate);
-           customerProductDatabase.insertRecord(newCustomerProduct);
-           customerProductDatabase.saveToFile();
-           productsDatabase.saveToFile();
-           return true;
-        }
     }
-    else return false;
-}
-public double returnProduct(String customerSSN, String productID, LocalDate purchaseDate ,LocalDate returnDate){
-    
-}
+
+    public double returnProduct(String customerSSN, String productID, LocalDate purchaseDate, LocalDate returnDate) {
+        if (returnDate.isBefore(purchaseDate)) {
+            return -1;
+        }
+
+        if (!productsDatabase.contains(productID)) {
+            return -1;
+        }
+
+        CustomerProduct customerProduct = new CustomerProduct(customerSSN, productID, purchaseDate);
+        String searchKey = customerProduct.getSearchKey();
+
+        if (!customerProductDatabase.contains(searchKey)) {
+            return -1;
+        }
+
+        long daysBetween = ChronoUnit.DAYS.between(purchaseDate, returnDate);
+
+        if (daysBetween > 14) {
+            return -1;
+        }
+
+        Product product = productsDatabase.getRecord(productID);
+        int newQuantity = product.getQuantity();
+        newQuantity = newQuantity + 1;
+        product.setQuantity(newQuantity);
+        customerProductDatabase.deleteRecord(searchKey);
+        productsDatabase.saveToFile();
+        customerProductDatabase.saveToFile();
+        return product.getPrice();
+
+    }
+
+    public boolean applyPayment(String customerSSN, LocalDate purchaseDate) {
+        for (CustomerProduct record : customerProductDatabase.returnAllRecords()) {
+            if (record.getCustomerSSN().equals(customerSSN) && record.getPurchaseDate().equals(purchaseDate)) {
+                if (!record.isPaid()) {
+                    record.setPaid(true);
+                    customerProductDatabase.saveToFile();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void logout() {
+        productsDatabase.saveToFile();
+        customerProductDatabase.saveToFile();
+    }
+
 }

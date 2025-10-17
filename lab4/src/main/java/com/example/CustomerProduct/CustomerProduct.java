@@ -14,12 +14,17 @@ public class CustomerProduct {
     public CustomerProduct(String customerSSN, String productID, LocalDate purchaseDate) {
         if (customerSSN == null || customerSSN.trim().isEmpty()) {
             throw new IllegalArgumentException(RED + "Invalid SSN number" + RESET);
-        } else if (customerSSN.trim().length() != 9) {
+        } else if (customerSSN.trim().length() != 10) {
             throw new IllegalArgumentException(RED + "Invalid SSN number" + RESET);
         } else {
             this.customerSSN = customerSSN;
         }
+        if( productID == null || productID.trim().isEmpty()) {
+            throw new IllegalArgumentException(RED + "Product ID cannot be null or empty" + RESET);
+        }
+        else {
         this.productID = productID;
+        }
         this.purchaseDate = purchaseDate;
         this.paid = false;
     }

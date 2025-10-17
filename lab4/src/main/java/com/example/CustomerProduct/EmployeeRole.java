@@ -10,8 +10,6 @@ public class EmployeeRole {
     public EmployeeRole() {
         this.customerProductDatabase = new CustomerProductDatabase("CustomersProducts.txt");
         this.productsDatabase = new ProductDatabase("Products.txt");
-        customerProductDatabase.readFromFile();
-        productsDatabase.readFromFile();
     }
 
     public void addProduct(String productID, String productName, String manufacturerName, String supplierName,
@@ -40,6 +38,7 @@ public class EmployeeRole {
                 newQuantity = newQuantity - 1;
                 product.setQuantity(newQuantity);
                 CustomerProduct newCustomerProduct = new CustomerProduct(customerSSN, productID, purchaseDate);
+                newCustomerProduct.setPaid(true);
                 customerProductDatabase.insertRecord(newCustomerProduct);
                 customerProductDatabase.saveToFile();
                 productsDatabase.saveToFile();
@@ -68,6 +67,10 @@ public class EmployeeRole {
         long daysBetween = ChronoUnit.DAYS.between(purchaseDate, returnDate);
 
         if (daysBetween > 14) {
+            return -1;
+        }
+        
+        if(!customerProductDatabase.getRecord(searchKey).isPaid()) {
             return -1;
         }
 

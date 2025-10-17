@@ -20,8 +20,6 @@ public class CustomerProduct {
             this.customerSSN = customerSSN;
         }
         this.productID = productID;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.purchaseDate.format(formatter);
         this.purchaseDate = purchaseDate;
         this.paid = false;
     }
@@ -39,7 +37,8 @@ public class CustomerProduct {
     }
 
     public String lineRepresentation() {
-        return this.customerSSN + "," + this.productID + "," + this.purchaseDate + "," + this.paid;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter) + "," + this.paid;
     }
 
     public boolean isPaid() {
@@ -51,8 +50,8 @@ public class CustomerProduct {
     }
 
     public String getSearchKey() {
-        
-        return this.customerSSN + "," + this.productID + "," + this.purchaseDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter);
     }
 
 }

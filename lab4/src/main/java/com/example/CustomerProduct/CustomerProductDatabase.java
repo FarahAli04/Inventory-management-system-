@@ -3,7 +3,9 @@ package com.example.CustomerProduct;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -126,4 +128,14 @@ public class CustomerProductDatabase{
         }
         // in main ask for contains first, if it is false then there is no record but if there is then call get delete
     }
+    public void saveToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("CustomersProducts.txt"))) {
+            for (CustomerProduct record : records) {
+                writer.println(record.lineRepresentation());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving to The file : " + e.getMessage());
+        }
+    }
+
 }

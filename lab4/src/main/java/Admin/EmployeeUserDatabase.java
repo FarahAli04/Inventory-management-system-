@@ -1,16 +1,19 @@
 package Admin;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class EmployeeUserDatabase {
+
     private ArrayList<EmployeeUser> records;
     private String filename;
 
     public EmployeeUserDatabase(String filename) {
         this.filename = filename;
-        this.records= new ArrayList<>();
-        readFromFile();   
+        this.records = new ArrayList<>();
+        readFromFile();
     }
+
     public void readFromFile() {
         records.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -27,9 +30,10 @@ public class EmployeeUserDatabase {
             System.out.println("Error reading The file: " + e.getMessage());
         }
     }
+
     public EmployeeUser createRecordFrom(String line) {
         String[] parts = line.split(",");
-        if (parts.length == 6) {
+        if (parts.length == 5) {
             try {
                 String employeeId = parts[0].trim();
                 String name = parts[1].trim();
@@ -43,10 +47,12 @@ public class EmployeeUserDatabase {
         }
         return null;
     }
-     public ArrayList<EmployeeUser> returnAllRecords() {
+
+    public ArrayList<EmployeeUser> returnAllRecords() {
         return records;
     }
-     public boolean contains(String key) {
+
+    public boolean contains(String key) {
         for (EmployeeUser record : records) {
             if (record.getSearchKey().equals(key)) {
                 return true;
@@ -54,7 +60,8 @@ public class EmployeeUserDatabase {
         }
         return false;
     }
-     public EmployeeUser getRecord(String key) {
+
+    public EmployeeUser getRecord(String key) {
         for (EmployeeUser record : records) {
             if (record.getSearchKey().equals(key)) {
                 return record;
@@ -64,7 +71,11 @@ public class EmployeeUserDatabase {
     }
 
     public void insertRecord(EmployeeUser record) {
-        records.add(record);
+        if (contains(record.getSearchKey())) {
+            System.out.println("Error: Employee ID " + record.getSearchKey() + " already exists!");
+        } else {
+            records.add(record);
+        }
     }
 
     public void deleteRecord(String key) {
@@ -80,6 +91,4 @@ public class EmployeeUserDatabase {
             System.out.println("Error saving to The file : " + e.getMessage());
         }
     }
-
-    
 }

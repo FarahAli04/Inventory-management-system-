@@ -269,5 +269,7 @@ public class Main {
                 System.out.println(RED + "Error!!! Invalid Input " + RESET);
                 break;
         }
+        scanner.close();
     }
+    
 }

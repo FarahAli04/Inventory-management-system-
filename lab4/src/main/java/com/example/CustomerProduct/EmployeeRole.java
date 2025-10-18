@@ -38,7 +38,7 @@ public class EmployeeRole {
                 newQuantity = newQuantity - 1;
                 product.setQuantity(newQuantity);
                 CustomerProduct newCustomerProduct = new CustomerProduct(customerSSN, productID, purchaseDate);
-                newCustomerProduct.setPaid(true);
+                //newCustomerProduct.setPaid(true);
                 customerProductDatabase.insertRecord(newCustomerProduct);
                 customerProductDatabase.saveToFile();
                 productsDatabase.saveToFile();

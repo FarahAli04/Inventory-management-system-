@@ -9,8 +9,14 @@ public class Product {
     private float price;
 
     public Product(String productID, String productName, String manufacturerName, String supplierName, int quantity, float price) {
-        if( productID == null || productID.trim().isEmpty()) {
-            throw new IllegalArgumentException("Product ID cannot be null or empty");
+        if(productID == null || productID.trim().isEmpty() || productID.trim().length() != 5) {
+            throw new IllegalArgumentException("Product ID cannot be null , empty or less than 5 characters long");
+        }
+        else if ( productID.charAt(0) != 'P') {
+            throw new IllegalArgumentException("Product ID must start with the letter 'P'");
+        }
+        else if (!productID.substring(1).matches("\\d{4}")) {
+            throw new IllegalArgumentException("Product ID must be followed by 4 digits");
         }
         else {
             this.productID = productID;

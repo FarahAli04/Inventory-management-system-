@@ -75,7 +75,11 @@ public class ProductDatabase {
     }
 
     public void insertRecord(Product record) {
-        records.add(record);
+        if (contains(record.getSearchKey())) {
+            throw new IllegalArgumentException("Record with the same key already exists.");
+        } else {
+            records.add(record);
+        }
     }
 
     public void deleteRecord(String key) {

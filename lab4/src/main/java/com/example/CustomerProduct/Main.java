@@ -25,7 +25,7 @@ public class Main {
         switch (x) {
             case 1:
                 while (flag) {
-                    System.out.println("Avaiable operations: ");
+                    System.out.println(PURPLE + "Avaiable operations: " + RESET);
                     System.out.println("1) Add new employees to the system");
                     System.out.println("2) View all employees ");
                     System.out.println("3) Remove an employee from the system");
@@ -34,22 +34,22 @@ public class Main {
                     int choice = scanner.nextInt();
                     switch (choice) {
                         case 1:
-                            System.out.println("Enter employee ID: ");
                             scanner.nextLine();
-                            String employeeId = scanner.nextLine();
+                            System.out.println("Enter employee ID (E + 4 digits): ");
+                            String employeeId = scanner.nextLine().trim();
                             System.out.println("Enter employee name: ");
-                            String name = scanner.nextLine();
+                            String name = scanner.nextLine().trim();
                             System.out.println("Enter employee email: ");
-                            String email = scanner.nextLine();
+                            String email = scanner.nextLine().trim();
                             System.out.println("Enter employee address: ");
-                            String address = scanner.nextLine();
+                            String address = scanner.nextLine().trim();
                             System.out.println("Enter employee phone number: ");
-                            String phoneNumber = scanner.nextLine();
+                            String phoneNumber = scanner.nextLine().trim();
                             AdminRole adminRoleAdd = new AdminRole();
                             try {
                                 adminRoleAdd.addEmployee(employeeId, name, email, address, phoneNumber);
                                 System.out.println(GREEN + "Employee added successfully!" + RESET);
-                            } catch (Exception e) {
+                            } catch (IllegalArgumentException e) {
                                 System.out.println(RED + "Error: " + e.getMessage() + RESET);
                                 break;
                             }
@@ -70,12 +70,18 @@ public class Main {
                             break;
 
                         case 3:
-                            System.out.println("Enter employee ID to remove: ");
+                            System.out.println("Enter employee ID to remove (E + 4 digits): ");
                             scanner.nextLine();
-                            String empIdToRemove = scanner.nextLine();
+                            String empIdToRemove = scanner.nextLine().trim();
                             AdminRole adminRoleRemove = new AdminRole();
+                            try {
                             adminRoleRemove.removeEmployee(empIdToRemove);
-                            System.out.println(GREEN + "Employee removed successfully!" + RESET);
+                            System.out.println(GREEN + "Employee removed successfully!" + RESET); 
+                            } catch (IllegalArgumentException e) {
+                            System.out.println(RED + "Error: " + e.getMessage() + RESET);
+                            break;
+                            }
+                            
                             break;
                         case 4:
                             AdminRole adminRole = new AdminRole();
@@ -88,13 +94,13 @@ public class Main {
                             System.out.println(RED + "Error!!! Invalid Input " + RESET);
                             break;
                     }
-                    break;
+
                 }
 
                 break;
             case 2:
                 while (flag) {
-                    System.out.println("Avaiable operations: ");
+                    System.out.println(PURPLE + "Avaiable operations: " + RESET);
                     System.out.println("1) Add new products to the inventory");
                     System.out.println("2) View all products ");
                     System.out.println("3) View all purchaes ");
@@ -107,17 +113,17 @@ public class Main {
                     switch (choice) {
                         case 1:
                             scanner.nextLine();
-                            System.out.print("Enter product ID: ");
-                            String productID = scanner.nextLine();
+                            System.out.print("Enter product ID (P + 4digits): ");
+                            String productID = scanner.nextLine().trim();
                             System.out.println();
                             System.out.println("Enter product name: ");
-                            String productName = scanner.nextLine();
+                            String productName = scanner.nextLine().trim();
                             System.out.println();
                             System.out.println("Enter manufacturer name: ");
-                            String manufacturerName = scanner.nextLine();
+                            String manufacturerName = scanner.nextLine().trim();
                             System.out.println();
                             System.out.println("Enter supplier name: ");
-                            String supplierName = scanner.nextLine();
+                            String supplierName = scanner.nextLine().trim();
                             System.out.println();
                             System.out.println("Enter quantity: ");
                             int quantity = scanner.nextInt();
@@ -134,6 +140,7 @@ public class Main {
                                 System.out.println(RED + "Error: " + e.getMessage() + RESET);
                                 break;
                             }
+                            
                             break;
                         case 2:
                             scanner.nextLine();
@@ -165,32 +172,37 @@ public class Main {
                         case 4:
                             scanner.nextLine();
                             System.out.print("Enter customer SSN: ");
-                            String customerSSN = scanner.nextLine();
+                            String customerSSN = scanner.nextLine().trim();
                             System.out.println();
-                            System.out.print("Enter product ID: ");
-                            String prodID = scanner.nextLine();
+                            System.out.print("Enter product ID (P + 4 digits): ");
+                            String prodID = scanner.nextLine().trim();
                             System.out.println();
                             System.out.print("Enter purchase date (YYYY-MM-DD): ");
                             String date = scanner.nextLine();
                             LocalDate purchaseDate = LocalDate.parse(date);
                             System.out.println();
                             EmployeeRole empRole2 = new EmployeeRole();
-                            boolean success = empRole2.purchaseProduct(customerSSN, prodID, purchaseDate);
-                            if (success) {
-                                System.out.println(GREEN + "Product purchased successfully!" + RESET);
-                            } else {
-                                System.out.println(RED
-                                        + "Purchase failed! Product may be out of stock or does not exist." + RESET);
+                            try {
+                                boolean success = empRole2.purchaseProduct(customerSSN, prodID, purchaseDate);
+                                if (success) {
+                                    System.out.println(GREEN + "Product purchased successfully!" + RESET);
+                                } else {
+                                    System.out.println(RED
+                                            + "Purchase failed! Product may be out of stock or does not exist."
+                                            + RESET);
+                                }
+                            } catch (Exception e) {
+                                System.out.println(RED + "Error: " + e.getMessage() + RESET);
+                                break;
                             }
-
                             break;
                         case 5:
                             scanner.nextLine();
                             System.out.print("Enter customer SSN: ");
-                            String custSSN = scanner.nextLine();
+                            String custSSN = scanner.nextLine().trim();
                             System.out.println();
-                            System.out.print("Enter product ID: ");
-                            String productIDReturn = scanner.nextLine();
+                            System.out.print("Enter product ID (P + 4 digits): ");
+                            String productIDReturn = scanner.nextLine().trim();
                             System.out.println();
                             System.out.print("Enter purchase date (YYYY-MM-DD): ");
                             String purchaseDateStr = scanner.nextLine();
@@ -202,21 +214,28 @@ public class Main {
                              */
                             LocalDate returnDate = LocalDate.now();
                             EmployeeRole empRole3 = new EmployeeRole();
-                            double refundAmount = empRole3.returnProduct(custSSN, productIDReturn, purchaseDateReturn,
-                                    returnDate);
-                            if (refundAmount == -1) {
-                                System.out.println(RED
-                                        + "Return failed! Invalid return date , product does not exist or product is not paid for."
-                                        + RESET);
-                            } else {
-                                System.out.println(GREEN + "Product returned successfully! Refund Amount: "
-                                        + refundAmount + RESET);
+                            try {
+                                double refundAmount = empRole3.returnProduct(custSSN, productIDReturn,
+                                        purchaseDateReturn,
+                                        returnDate);
+                                if (refundAmount == -1) {
+                                    System.out.println(RED
+                                            + "Return failed! Invalid return date , product does not exist or product is not paid for."
+                                            + RESET);
+                                } else {
+                                    System.out.println(GREEN + "Product returned successfully! Refund Amount: "
+                                            + refundAmount + RESET);
+                                }
+                            } catch (Exception e) {
+                                System.out.println(RED + "Error: " + e.getMessage() + RESET);
+                                break;
                             }
+
                             break;
                         case 6:
                             scanner.nextLine();
                             System.out.print("Enter customer SSN: ");
-                            String custSSNPay = scanner.nextLine();
+                            String custSSNPay = scanner.nextLine().trim();
                             System.out.println();
                             System.out.print("Enter purchase date (YYYY-MM-DD): ");
                             String purchaseDateStrPay = scanner.nextLine();

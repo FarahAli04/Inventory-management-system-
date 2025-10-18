@@ -7,6 +7,8 @@ public class EmployeeUserDatabase {
 
     private ArrayList<EmployeeUser> records;
     private String filename;
+    public static final String RED = "\u001B[31m";
+    public static final String RESET = "\u001B[0m";
 
     public EmployeeUserDatabase(String filename) {
         this.filename = filename;
@@ -27,7 +29,7 @@ public class EmployeeUserDatabase {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading The file: " + e.getMessage());
+            System.out.println(RED + "Error reading The file: " + e.getMessage() + RESET);
         }
     }
 
@@ -42,7 +44,7 @@ public class EmployeeUserDatabase {
                 String phoneNumber = parts[4].trim();
                 return new EmployeeUser(employeeId, name, email, address, phoneNumber);
             } catch (NumberFormatException e) {
-                System.out.println("Error parsing number : " + e.getMessage());
+                System.out.println(RED + "Error parsing number : " + e.getMessage()+ RESET);
             }
         }
         return null;
@@ -72,7 +74,7 @@ public class EmployeeUserDatabase {
 
     public void insertRecord(EmployeeUser record) {
         if (contains(record.getSearchKey())) {
-            System.out.println("Error: Employee ID " + record.getSearchKey() + " already exists!");
+            throw new IllegalArgumentException(RED + "Record with the same key already exists." + RESET);
         } else {
             records.add(record);
         }
@@ -88,7 +90,7 @@ public class EmployeeUserDatabase {
                 writer.println(record.lineRepresentation());
             }
         } catch (IOException e) {
-            System.out.println("Error saving to The file : " + e.getMessage());
+            System.out.println(RED + "Error saving to The file : " + e.getMessage()+ RESET);
         }
     }
 }

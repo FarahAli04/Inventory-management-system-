@@ -113,19 +113,10 @@ public class CustomerProductDatabase{
         this.records.add(record);
     }
 
-   public void deleteRecord(String key) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    for (int i = 0; i < records.size(); i++) {
-        CustomerProduct x = records.get(i);
-        String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(formatter);
-        if (xString.equals(key)) {
-            records.remove(i);
-            System.out.println("Record Removed Successfully");
-            return; // Exit after removal
-        }
+  public void deleteRecord(String key) {
+        records.removeIf(record -> record.getSearchKey().equals(key));
     }
-    System.out.println("There is no Record " + key + " in file");
-}
+
     public void saveToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             for (CustomerProduct record : records) {

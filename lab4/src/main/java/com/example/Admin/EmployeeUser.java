@@ -9,8 +9,14 @@ public class EmployeeUser {
     private String phoneNumber;
 
     public EmployeeUser(String employeeId, String name, String email, String address, String phoneNumber) {
-        if(employeeId == null || employeeId.trim().isEmpty()) {
-            throw new IllegalArgumentException("Employee ID cannot be null or empty");
+        if(employeeId == null || employeeId.trim().isEmpty() || employeeId.trim().length() != 5) {
+            throw new IllegalArgumentException("Employee ID cannot be null , empty or less than 5 characters long");
+        }
+         else if (employeeId.charAt(0) != 'E') {
+            throw new IllegalArgumentException("Product ID must start with the letter 'E'");
+        }
+        else if (!employeeId.substring(1).matches("\\d{4}")) {
+            throw new IllegalArgumentException("Product ID must be followed by 4 digits");
         }
         else{
             this.employeeId = employeeId;

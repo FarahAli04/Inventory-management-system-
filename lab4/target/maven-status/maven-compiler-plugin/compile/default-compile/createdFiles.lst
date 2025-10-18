@@ -1,3 +1,4 @@
+Admin\EmployeeUser.class
 Admin\EmployeeUserDatabase.class
 com\example\Main.class
-Admin\EmployeeUser.class
+Admin\AdminRole.class

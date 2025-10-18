@@ -1,4 +1,4 @@
-package Admin;
+package com.example.CustomerProduct.Admin;
 
 public class EmployeeUser {
 

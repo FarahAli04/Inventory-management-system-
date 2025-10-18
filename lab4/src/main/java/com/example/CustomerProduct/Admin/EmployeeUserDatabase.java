@@ -1,4 +1,4 @@
-package Admin;
+package com.example.CustomerProduct.Admin;
 
 import java.io.*;
 import java.util.ArrayList;

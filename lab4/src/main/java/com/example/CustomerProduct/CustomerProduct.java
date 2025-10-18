@@ -3,7 +3,7 @@ package com.example.CustomerProduct;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class CustomerProduct {
+public class CustomerProduct implements Line {
     public static final String RED = "\u001B[31m";
     public static final String RESET = "\u001B[0m";
     private String customerSSN;

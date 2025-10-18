@@ -1,3 +1,4 @@
-P2394,Laptop,Apple,TechSupplier,10,1500.0
+P2394,Laptop,Apple,TechSupplier,9,1500.0
 P2393,Laptop,Apple,skjndsk,10,2888.0
-P2556,jfhf,sjkbbsf,skjbjnf,2889,100000.0
+P2556,jfhf,sjkbbsf,skjbjnf,2888,100000.0
+P9876,jhjhh,kjiu,dkjdhjd,100,900.0

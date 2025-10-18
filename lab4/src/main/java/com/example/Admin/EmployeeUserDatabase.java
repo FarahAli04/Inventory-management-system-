@@ -1,38 +1,16 @@
 package com.example.Admin;
 
-import java.io.*;
-import java.util.ArrayList;
+import com.example.CustomerProduct.DataBase;
 
-public class EmployeeUserDatabase {
-
-    private ArrayList<EmployeeUser> records;
-    private String filename;
+public class EmployeeUserDatabase extends DataBase<EmployeeUser> {
     public static final String RED = "\u001B[31m";
     public static final String RESET = "\u001B[0m";
 
     public EmployeeUserDatabase(String filename) {
-        this.filename = filename;
-        this.records = new ArrayList<>();
-        readFromFile();
+        super(filename);
     }
 
-    public void readFromFile() {
-        records.clear();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (!line.trim().isEmpty()) {
-                    EmployeeUser record = createRecordFrom(line);
-                    if (record != null) {
-                        records.add(record);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            System.out.println(RED + "Error reading The file: " + e.getMessage() + RESET);
-        }
-    }
-
+    @Override
     public EmployeeUser createRecordFrom(String line) {
         String[] parts = line.split(",");
         if (parts.length == 5) {
@@ -48,49 +26,5 @@ public class EmployeeUserDatabase {
             }
         }
         return null;
-    }
-
-    public ArrayList<EmployeeUser> returnAllRecords() {
-        return records;
-    }
-
-    public boolean contains(String key) {
-        for (EmployeeUser record : records) {
-            if (record.getSearchKey().equals(key)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public EmployeeUser getRecord(String key) {
-        for (EmployeeUser record : records) {
-            if (record.getSearchKey().equals(key)) {
-                return record;
-            }
-        }
-        return null;
-    }
-
-    public void insertRecord(EmployeeUser record) {
-        if (contains(record.getSearchKey())) {
-            throw new IllegalArgumentException(RED + "Record with the same key already exists." + RESET);
-        } else {
-            records.add(record);
-        }
-    }
-
-    public void deleteRecord(String key) {
-        records.removeIf(record -> record.getSearchKey().equals(key));
-    }
-
-    public void saveToFile() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-            for (EmployeeUser record : records) {
-                writer.println(record.lineRepresentation());
-            }
-        } catch (IOException e) {
-            System.out.println(RED + "Error saving to The file : " + e.getMessage()+ RESET);
-        }
     }
 }

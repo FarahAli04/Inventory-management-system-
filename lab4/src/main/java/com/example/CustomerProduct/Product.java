@@ -1,6 +1,6 @@
 package com.example.CustomerProduct;
 
-public class Product {
+public class Product implements Line {
     private String productID;
     private String productName;
     private String manufacturerName;

@@ -1,6 +1,6 @@
 package com.example.Admin;
-
-public class EmployeeUser {
+import com.example.CustomerProduct.Line;
+public class EmployeeUser implements Line {
 
     private String employeeId;
     private String name;
@@ -30,6 +30,9 @@ public class EmployeeUser {
         if(email == null || email.trim().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
         }
+        else if( (!email.contains("@") && !email.contains(".") && email.indexOf(".") < email.indexOf("@") && email.indexOf("@") == 0)){
+            throw new IllegalArgumentException("Email is not valid");
+        }
         else{
             this.email = email;
         }
@@ -39,8 +42,8 @@ public class EmployeeUser {
         else{
             this.address = address;
         }
-        if(phoneNumber == null || phoneNumber.trim().isEmpty()) {
-            throw new IllegalArgumentException("Phone number cannot be null or empty");
+        if(phoneNumber == null || phoneNumber.trim().isEmpty() || phoneNumber.trim().length() != 11) {
+            throw new IllegalArgumentException("Phone number cannot be null , empty or does not equal 11 characters");
         }
         else{
             this.phoneNumber = phoneNumber;

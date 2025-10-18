@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import com.example.Admin.EmployeeUser;
-
-public abstract class DataBase<T> {
+public abstract class DataBase<T extends Line> {
 
     private static final String RED = "\u001B[31m";
     private static final String RESET = "\u001B[0m";
@@ -22,6 +20,7 @@ public abstract class DataBase<T> {
         } else {
             this.filename = filename;
         }
+        this.records = new ArrayList<>();
         this.readFromFile();
 
     }
@@ -70,6 +69,20 @@ public abstract class DataBase<T> {
         } catch (IOException e) {
             System.out.println(RED + "Error saving to The file : " + e.getMessage()+ RESET);
         }
+    }
+
+    public  T getRecord(String key){
+          for ( T record : records) {
+            if (record.getSearchKey().equals(key)) {
+                return record;
+            }
+        }
+        return null;
+    }
+
+
+    public void deleteRecord(String key) {
+        records.removeIf(record -> record.getSearchKey().equals(key));
     }
 
 }

@@ -35,15 +35,15 @@ public class Main {
                     switch (choice) {
                         case 1:
                             scanner.nextLine();
-                            System.out.println("Enter employee ID (E + 4 digits): ");
+                            System.out.print("Enter employee ID (E + 4 digits): ");
                             String employeeId = scanner.nextLine().trim();
-                            System.out.println("Enter employee name: ");
+                            System.out.print("Enter employee name: ");
                             String name = scanner.nextLine().trim();
-                            System.out.println("Enter employee email: ");
+                            System.out.print("Enter employee email: ");
                             String email = scanner.nextLine().trim();
-                            System.out.println("Enter employee address: ");
+                            System.out.print("Enter employee address: ");
                             String address = scanner.nextLine().trim();
-                            System.out.println("Enter employee phone number: ");
+                            System.out.print("Enter employee phone number: ");
                             String phoneNumber = scanner.nextLine().trim();
                             AdminRole adminRoleAdd = new AdminRole();
                             try {
@@ -70,18 +70,18 @@ public class Main {
                             break;
 
                         case 3:
-                            System.out.println("Enter employee ID to remove (E + 4 digits): ");
+                            System.out.print("Enter employee ID to remove (E + 4 digits): ");
                             scanner.nextLine();
                             String empIdToRemove = scanner.nextLine().trim();
                             AdminRole adminRoleRemove = new AdminRole();
                             try {
-                            adminRoleRemove.removeEmployee(empIdToRemove);
-                            System.out.println(GREEN + "Employee removed successfully!" + RESET); 
+                                adminRoleRemove.removeEmployee(empIdToRemove);
+                                System.out.println(GREEN + "Employee removed successfully!" + RESET);
                             } catch (IllegalArgumentException e) {
-                            System.out.println(RED + "Error: " + e.getMessage() + RESET);
-                            break;
+                                System.out.println(RED + "Error: " + e.getMessage() + RESET);
+                                break;
                             }
-                            
+
                             break;
                         case 4:
                             AdminRole adminRole = new AdminRole();
@@ -140,7 +140,7 @@ public class Main {
                                 System.out.println(RED + "Error: " + e.getMessage() + RESET);
                                 break;
                             }
-                            
+
                             break;
                         case 2:
                             scanner.nextLine();
@@ -176,10 +176,12 @@ public class Main {
                             System.out.println();
                             System.out.print("Enter product ID (P + 4 digits): ");
                             String prodID = scanner.nextLine().trim();
-                            System.out.println();
-                            System.out.print("Enter purchase date (YYYY-MM-DD): ");
-                            String date = scanner.nextLine();
-                            LocalDate purchaseDate = LocalDate.parse(date);
+                            /*
+                             * System.out.print("Enter purchase date (YYYY-MM-DD): ");
+                             * String date = scanner.nextLine();
+                             * LocalDate purchaseDate = LocalDate.parse(date);
+                             */
+                            LocalDate purchaseDate = LocalDate.now();
                             System.out.println();
                             EmployeeRole empRole2 = new EmployeeRole();
                             try {

@@ -10,6 +10,7 @@ public class CustomerProduct implements Line {
     private LocalDate purchaseDate;
     private boolean paid;
 
+
     public CustomerProduct(String customerSSN, String productID, LocalDate purchaseDate) {
         if (customerSSN == null || customerSSN.trim().isEmpty() || customerSSN.trim().length() != 10) {
             throw new IllegalArgumentException(RED + "Invalid SSN number" + RESET);
@@ -32,12 +33,6 @@ public class CustomerProduct implements Line {
     public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
-
-    public String lineRepresentation() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter) + "," + this.paid;
-    }
-
     public boolean isPaid() {
         return this.paid;
     }
@@ -45,7 +40,14 @@ public class CustomerProduct implements Line {
     public void setPaid(boolean paid) {
         this.paid = paid;
     }
+    
+    @Override
+    public String lineRepresentation() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter) + "," + this.paid;
+    }
 
+    @Override
     public String getSearchKey() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter);

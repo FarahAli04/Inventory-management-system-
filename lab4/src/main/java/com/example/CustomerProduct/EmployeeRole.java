@@ -13,6 +13,37 @@ public class EmployeeRole {
         this.productsDatabase = new ProductDatabase("Products.txt");
     }
 
+
+    public CustomerProductDatabase getCustomerProductDatabase() {
+        return customerProductDatabase;
+    }
+
+
+
+    public void setCustomerProductDatabase(CustomerProductDatabase customerProductDatabase) {
+        this.customerProductDatabase = customerProductDatabase;
+    }
+
+
+
+    public ProductDatabase getProductsDatabase() {
+        return productsDatabase;
+    }
+
+
+
+    public void setProductsDatabase(ProductDatabase productsDatabase) {
+        this.productsDatabase = productsDatabase;
+    }
+
+
+
+    public float getDefaultPrice() {
+        return defaultPrice;
+    }
+
+
+
     public void addProduct(String productID, String productName, String manufacturerName, String supplierName,
             int quantity, float price) {
         Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity, price);

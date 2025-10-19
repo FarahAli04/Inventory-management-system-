@@ -1,4 +1,4 @@
-package Admin;
+package com.example.Admin;
 import java.util.ArrayList;
 
 public class AdminRole {
@@ -11,6 +11,7 @@ public class AdminRole {
     public void addEmployee(String employeeId, String name, String email, String address, String phoneNumber){
         EmployeeUser newEmployee =new EmployeeUser(employeeId,name,email,address,phoneNumber);
         database.insertRecord(newEmployee);
+        database.saveToFile();
     }
     public EmployeeUser[] getListOfEmployees(){
         ArrayList<EmployeeUser> l=database.returnAllRecords();
@@ -18,7 +19,11 @@ public class AdminRole {
     }
     
     public void removeEmployee(String key){
+        if (!database.contains(key)) {
+            throw new IllegalArgumentException("No employee found with ID: " + key);
+        }
         database.deleteRecord(key);
+        database.saveToFile();
     }
     public void logout(){
         database.saveToFile();

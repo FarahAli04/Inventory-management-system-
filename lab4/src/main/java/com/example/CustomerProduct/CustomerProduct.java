@@ -1,7 +1,6 @@
 package com.example.CustomerProduct;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class CustomerProduct implements Line {
     public static final String RED = "\u001B[31m";
@@ -17,17 +16,8 @@ public class CustomerProduct implements Line {
         } else {
             this.customerSSN = customerSSN;
         }
-        if (productID == null || productID.trim().isEmpty()) {
-            throw new IllegalArgumentException(RED + "Product ID cannot be null or empty" + RESET);
-        } else {
-            this.productID = productID;
-        }
-        if (purchaseDate.isAfter(LocalDate.now())) {
-            throw new IllegalArgumentException(RED + "Purchase date cannot be in the future" + RESET);
-        } else {
-            this.purchaseDate = purchaseDate;
-        }
-
+        this.productID = productID;
+        this.purchaseDate = purchaseDate;
         this.paid = false;
     }
 

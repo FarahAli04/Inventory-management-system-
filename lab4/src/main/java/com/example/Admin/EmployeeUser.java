@@ -1,5 +1,7 @@
 package com.example.Admin;
+
 import com.example.CustomerProduct.Line;
+
 public class EmployeeUser implements Line {
 
     private String employeeId;
@@ -42,48 +44,84 @@ public class EmployeeUser implements Line {
     }
 
     public EmployeeUser(String employeeId, String name, String email, String address, String phoneNumber) {
-        if(employeeId == null || employeeId.trim().isEmpty() || employeeId.trim().length() != 5) {
+        if (employeeId == null || employeeId.trim().isEmpty() || employeeId.trim().length() != 5) {
             throw new IllegalArgumentException("Employee ID cannot be null , empty or less than 5 characters long");
-        }
-         else if (employeeId.charAt(0) != 'E') {
+        } else if (employeeId.charAt(0) != 'E') {
             throw new IllegalArgumentException("Product ID must start with the letter 'E'");
-        }
-        else if (!employeeId.substring(1).matches("\\d{4}")) {
+        } else if (!employeeId.substring(1).matches("\\d{4}")) {
             throw new IllegalArgumentException("Product ID must be followed by 4 digits");
-        }
-        else{
+        } else {
             this.employeeId = employeeId;
         }
-        if(name == null || name.trim().isEmpty()) {
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
-        }
-        else{
+        } else {
             this.name = name;
         }
-        if(email == null || email.trim().isEmpty()) {
+        if (email == null || email.trim().isEmpty()) {
             throw new IllegalArgumentException("Email cannot be null or empty");
-        }
-        else if( (!email.contains("@") && !email.contains(".") && email.indexOf(".") < email.indexOf("@") && email.indexOf("@") == 0)){
+        } else if ((!email.contains("@") && !email.contains(".") && email.indexOf(".") < email.indexOf("@")
+                && email.indexOf("@") == 0)) {
             throw new IllegalArgumentException("Email is not valid");
-        }
-        else{
+        } else {
             this.email = email;
         }
         if (address == null || address.trim().isEmpty()) {
-             throw new IllegalArgumentException("Address cannot be null or empty");
-        }
-        else{
+            throw new IllegalArgumentException("Address cannot be null or empty");
+        } else {
             this.address = address;
         }
-        if(phoneNumber == null || phoneNumber.trim().isEmpty() || phoneNumber.trim().length() != 11) {
+        if (phoneNumber == null || phoneNumber.trim().isEmpty() || phoneNumber.trim().length() != 11) {
             throw new IllegalArgumentException("Phone number cannot be null , empty or does not equal 11 characters");
-        }
-        else{
+        } else {
             this.phoneNumber = phoneNumber;
         }
-        
+
     }
 
+<<<<<<< Updated upstream
+=======
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+>>>>>>> Stashed changes
     @Override
     public String lineRepresentation() {
         return this.employeeId + "," + this.name + "," + this.email + "," + this.address + "," + this.phoneNumber;
@@ -93,5 +131,5 @@ public class EmployeeUser implements Line {
     public String getSearchKey() {
         return this.employeeId;
     }
-    
+
 }

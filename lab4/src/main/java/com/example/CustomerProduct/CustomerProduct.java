@@ -43,13 +43,35 @@ public class CustomerProduct implements Line {
     public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
+<<<<<<< Updated upstream
+=======
+    @Override
+    public String lineRepresentation() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter) + "," + this.paid;
+    }
+
+>>>>>>> Stashed changesئ
     public boolean isPaid() {
         return this.paid;
+    }
+
+    public void setCustomerSSN(String customerSSN) {
+        this.customerSSN = customerSSN;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
+    }
+
+    public void setPurchaseDate(LocalDate purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public void setPaid(boolean paid) {
         this.paid = paid;
     }
+<<<<<<< Updated upstream
     
     @Override
     public String lineRepresentation() {
@@ -57,6 +79,8 @@ public class CustomerProduct implements Line {
         return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter) + "," + this.paid;
     }
 
+=======
+>>>>>>> Stashed changes
     @Override
     public String getSearchKey() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

@@ -7,12 +7,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
-public class CustomerProductDatabase {
-
-    private ArrayList<CustomerProduct> records;
-    private String filename;
 
 public class CustomerProductDatabase extends DataBase<CustomerProduct> {
     public static final String RED = "\u001B[31m";
@@ -96,18 +90,4 @@ public class CustomerProductDatabase extends DataBase<CustomerProduct> {
         // in main ask for contains first, if it is false then there is no record but if there is then call get record
     }
 
-    public void insertRecord(CustomerProduct record) {
-        this.records.add(record);
-    }
-
-    public void deleteRecord(String key) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        for (CustomerProduct x : records) {
-            String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(formatter);
-            if (xString.equals(key)) {
-                this.records.remove(x);
-            }
-        }
-        // in main ask for contains first, if it is false then there is no record but if there is then call get delete
-    }
 }

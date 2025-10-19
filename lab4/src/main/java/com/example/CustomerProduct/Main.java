@@ -116,30 +116,45 @@ public class Main {
                             System.out.print("Enter product ID (P + 4digits): ");
                             String productID = scanner.nextLine().trim();
                             System.out.println();
-                            System.out.println("Enter product name: ");
+                            System.out.print("Enter product name: ");
                             String productName = scanner.nextLine().trim();
                             System.out.println();
-                            System.out.println("Enter manufacturer name: ");
+                            System.out.print("Enter manufacturer name: ");
                             String manufacturerName = scanner.nextLine().trim();
                             System.out.println();
-                            System.out.println("Enter supplier name: ");
+                            System.out.print("Enter supplier name: ");
                             String supplierName = scanner.nextLine().trim();
                             System.out.println();
-                            System.out.println("Enter quantity: ");
+                            System.out.print("Enter quantity: ");
                             int quantity = scanner.nextInt();
                             System.out.println();
-                            System.out.println("Enter price: ");
-                            float price = scanner.nextFloat();
+                            scanner.nextLine();
+                            System.out.print("Enter price: ");
+                            String price = scanner.nextLine();
                             System.out.println();
                             EmployeeRole employeeRole = new EmployeeRole();
-                            try {
+                            if(price.isEmpty()) {
+                                try {
+                                    employeeRole.addProduct(productID, productName, manufacturerName, supplierName,
+                                            quantity);
+                                    System.out.println(GREEN + "Product added successfully!" + RESET);
+                                } catch (IllegalArgumentException e) {
+                                    System.out.println(RED + "Error: " + e.getMessage() + RESET);
+                                    break;
+                                }
+                            }
+                            else{
+                                 float priceFloat = Float.parseFloat(price);
+                                 try {
                                 employeeRole.addProduct(productID, productName, manufacturerName, supplierName,
-                                        quantity, price);
+                                        quantity, priceFloat);
                                 System.out.println(GREEN + "Product added successfully!" + RESET);
                             } catch (IllegalArgumentException e) {
                                 System.out.println(RED + "Error: " + e.getMessage() + RESET);
                                 break;
                             }
+                            }
+                           
 
                             break;
                         case 2:

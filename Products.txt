@@ -1,4 +1,5 @@
-P2394,Laptop,Apple,TechSupplier,9,1500.0
-P2393,Laptop,Apple,skjndsk,10,2888.0
-P2556,jfhf,sjkbbsf,skjbjnf,2888,100000.0
-P9876,jhjhh,kjiu,dkjdhjd,100,900.0
+P2590,Laptop,Apple,TechSupplier,9,1500.0
+P2568,Laptop,Apple,skjndsk,10,2888.0
+P4567,cell phone,Apple,technosupplier,20,1000.0
+P5678,Fridge,LG,HomeSupplier,10,1000.0
+P7786,Oven,Tornado,TopChef,15,5000.0

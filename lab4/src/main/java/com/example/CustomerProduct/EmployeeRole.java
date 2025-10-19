@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 public class EmployeeRole {
     private CustomerProductDatabase customerProductDatabase;
     private ProductDatabase productsDatabase;
+    private final float defaultPrice = 1000;
 
     public EmployeeRole() {
         this.customerProductDatabase = new CustomerProductDatabase("CustomersProducts.txt");
@@ -15,6 +16,12 @@ public class EmployeeRole {
     public void addProduct(String productID, String productName, String manufacturerName, String supplierName,
             int quantity, float price) {
         Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity, price);
+        productsDatabase.insertRecord(newProduct);
+        productsDatabase.saveToFile();
+    }
+    public void addProduct(String productID, String productName, String manufacturerName, String supplierName,
+            int quantity) {
+        Product newProduct = new Product(productID, productName, manufacturerName, supplierName, quantity, defaultPrice);
         productsDatabase.insertRecord(newProduct);
         productsDatabase.saveToFile();
     }

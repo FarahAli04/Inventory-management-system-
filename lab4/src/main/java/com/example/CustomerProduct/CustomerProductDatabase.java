@@ -9,13 +9,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class CustomerProductDatabase extends DataBase<CustomerProduct> {
+
     public static final String RED = "\u001B[31m";
     public static final String RESET = "\u001B[0m";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
     public CustomerProductDatabase(String filename) {
         super(filename);
 
     }
+
     @Override
     public void readFromFile() {
         String line;
@@ -31,7 +34,7 @@ public class CustomerProductDatabase extends DataBase<CustomerProduct> {
                     System.out.println(RED + "Skipping Invalid record of Length: " + recordStr.length + RESET);
                     continue;
                 }
-               CustomerProduct cp;
+                CustomerProduct cp;
                 try {
                     cp = createRecordFrom(line);
                 } catch (IllegalArgumentException | DateTimeParseException e) {
@@ -48,10 +51,11 @@ public class CustomerProductDatabase extends DataBase<CustomerProduct> {
             System.out.println(RED + "Error Locating File" + RESET);
 
         } catch (IOException e) {
-            System.out.println(RED + "Something Went Wrong" +RESET);
+            System.out.println(RED + "Something Went Wrong" + RESET);
 
         }
     }
+
     @Override
     public CustomerProduct createRecordFrom(String line) {
         String[] recordStr = line.split(",");
@@ -67,8 +71,7 @@ public class CustomerProductDatabase extends DataBase<CustomerProduct> {
         return cp;
     }
 
-    
-   @Override
+    @Override
     public boolean contains(String key) {
         for (CustomerProduct x : records) {
             String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(DATE_FORMATTER);
@@ -78,7 +81,8 @@ public class CustomerProductDatabase extends DataBase<CustomerProduct> {
         }
         return false;
     }
-   @Override
+
+    @Override
     public CustomerProduct getRecord(String key) {
         for (CustomerProduct x : records) {
             String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(DATE_FORMATTER);

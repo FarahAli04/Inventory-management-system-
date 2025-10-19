@@ -14,6 +14,10 @@ public abstract class DataBase<T extends Line> {
     protected String filename;
     protected ArrayList<T> records;
 
+    public String getFilename() {
+        return filename;
+    }
+
     public DataBase(String filename) {
         if (filename == null || filename.trim().isEmpty()) {
             throw new IllegalArgumentException(RED + "Invalid filename: " + filename + RESET);
@@ -41,10 +45,13 @@ public abstract class DataBase<T extends Line> {
             System.out.println(RED + "Error reading The file: " + e.getMessage() + RESET);
         }
     }
+
     public abstract T createRecordFrom(String line);
+
     public ArrayList<T> returnAllRecords() {
         return records;
     }
+
     public boolean contains(String key) {
         for (T record : records) {
             if (record.getSearchKey().equals(key)) {
@@ -61,25 +68,25 @@ public abstract class DataBase<T extends Line> {
             records.add(record);
         }
     }
+
     public void saveToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
             for (T record : records) {
                 writer.println(record.lineRepresentation());
             }
         } catch (IOException e) {
-            System.out.println(RED + "Error saving to The file : " + e.getMessage()+ RESET);
+            System.out.println(RED + "Error saving to The file : " + e.getMessage() + RESET);
         }
     }
 
-    public  T getRecord(String key){
-          for ( T record : records) {
+    public T getRecord(String key) {
+        for (T record : records) {
             if (record.getSearchKey().equals(key)) {
                 return record;
             }
         }
         return null;
     }
-
 
     public void deleteRecord(String key) {
         records.removeIf(record -> record.getSearchKey().equals(key));

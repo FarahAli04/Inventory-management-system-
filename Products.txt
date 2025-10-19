@@ -3,3 +3,4 @@ P2568,Laptop,Apple,skjndsk,10,2888.0
 P4567,cell phone,Apple,technosupplier,20,1000.0
 P5678,Fridge,LG,HomeSupplier,10,1000.0
 P7786,Oven,Tornado,TopChef,15,5000.0
+P4456,lap,efef,fefef,10,3000.0

@@ -3,6 +3,15 @@ import java.util.ArrayList;
 
 public class AdminRole {
     private EmployeeUserDatabase database;
+
+    public EmployeeUserDatabase getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(EmployeeUserDatabase database) {
+        this.database = database;
+    }
+    
     
     public AdminRole(){
         this.database = new EmployeeUserDatabase("Employees.txt");
@@ -28,4 +37,6 @@ public class AdminRole {
     public void logout(){
         database.saveToFile();
     }
+
+    
 }

@@ -2,7 +2,7 @@ package com.example.CustomerProduct;
 
 import java.time.LocalDate;
 
-public class CustomerProduct {
+public class CustomerProduct implements Line {
     public static final String RED = "\u001B[31m";
     public static final String RESET = "\u001B[0m";
     private String customerSSN;
@@ -11,9 +11,7 @@ public class CustomerProduct {
     private boolean paid;
 
     public CustomerProduct(String customerSSN, String productID, LocalDate purchaseDate) {
-        if (customerSSN == null || customerSSN.trim().isEmpty()) {
-            throw new IllegalArgumentException(RED + "Invalid SSN number" + RESET);
-        } else if (customerSSN.trim().length() != 9) {
+        if (customerSSN == null || customerSSN.trim().isEmpty() || customerSSN.trim().length() != 10) {
             throw new IllegalArgumentException(RED + "Invalid SSN number" + RESET);
         } else {
             this.customerSSN = customerSSN;
@@ -36,11 +34,12 @@ public class CustomerProduct {
     }
 
     public String lineRepresentation() {
-        return this.customerSSN + "," + this.productID + "," + this.purchaseDate + "," + this.paid;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter) + "," + this.paid;
     }
 
     public boolean isPaid() {
-       return this.paid;
+        return this.paid;
     }
 
     public void setPaid(boolean paid) {
@@ -48,8 +47,8 @@ public class CustomerProduct {
     }
 
     public String getSearchKey() {
-        
-        return this.customerSSN + "," + this.productID + "," + this.purchaseDate;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.customerSSN + "," + this.productID + "," + this.purchaseDate.format(formatter);
     }
 
 }

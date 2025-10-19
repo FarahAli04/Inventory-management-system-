@@ -14,18 +14,17 @@ public class CustomerProductDatabase {
     private ArrayList<CustomerProduct> records;
     private String filename;
 
+public class CustomerProductDatabase extends DataBase<CustomerProduct> {
+    public static final String RED = "\u001B[31m";
+    public static final String RESET = "\u001B[0m";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public CustomerProductDatabase(String filename) {
-        if (filename == null || filename.trim().isEmpty()) {
-            throw new IllegalArgumentException("Invalid filename: " + filename);
-        } else {
-            this.filename = filename;
-        }
+        super(filename);
 
     }
-
+    @Override
     public void readFromFile() {
         String line;
-        this.records = new ArrayList<>();
         boolean emptyFile = true;
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             while ((line = reader.readLine()) != null) {
@@ -35,72 +34,60 @@ public class CustomerProductDatabase {
                 emptyFile = false;
                 String[] recordStr = line.split(",");
                 if (recordStr.length != 4) {
-                    System.out.println("Skipping Invalid record of Length: " + recordStr.length);
+                    System.out.println(RED + "Skipping Invalid record of Length: " + recordStr.length + RESET);
                     continue;
                 }
+               CustomerProduct cp;
                 try {
-                    String customerSSN = recordStr[0].trim();
-                    String productID = recordStr[1].trim();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    LocalDate purchaseDate = LocalDate.parse(recordStr[2].trim(), formatter);
-                    boolean paid = Boolean.parseBoolean(recordStr[3].trim());
-                    CustomerProduct cp = new CustomerProduct(customerSSN, productID, purchaseDate);
-                    cp.setPaid(paid);
-                    this.records.add(cp);
-
-                } catch (DateTimeParseException e) {
-                    System.out.println("Skipping record with invalid date format: " + line);
-                } catch (Exception e) {
-                    System.out.println("Skipping invalid record: " + line);
+                    cp = createRecordFrom(line);
+                } catch (IllegalArgumentException | DateTimeParseException e) {
+                    System.out.println(RED + "Skipping Invalid record: " + e.getMessage() + RESET);
+                    continue;
                 }
+                records.add(cp);
             }
             if (emptyFile) {
-                System.out.println("File is Empty or Contains only Blank lines");
+                System.out.println(RED + "File is Empty or Contains only Blank lines" + RESET);
             }
 
         } catch (FileNotFoundException e) {
-            System.out.println("Error Locating File");
+            System.out.println(RED + "Error Locating File" + RESET);
 
         } catch (IOException e) {
-            System.out.println("Something Went Wrong");
+            System.out.println(RED + "Something Went Wrong" +RESET);
 
         }
     }
-
+    @Override
     public CustomerProduct createRecordFrom(String line) {
         String[] recordStr = line.split(",");
         if (recordStr.length != 4) {
-            throw new IllegalArgumentException("Invalid record format. Expected 4 fields comma separated but got: " + recordStr.length);
+            throw new IllegalArgumentException(RED + "Invalid record format. Expected 4 fields comma separated but got: " + recordStr.length + RESET);
         }
         String customerSSN = recordStr[0];
         String productID = recordStr[1];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate purchaseDate = LocalDate.parse(recordStr[2], formatter);
+        LocalDate purchaseDate = LocalDate.parse(recordStr[2], DATE_FORMATTER);
         boolean paid = Boolean.parseBoolean(recordStr[3]);
         CustomerProduct cp = new CustomerProduct(customerSSN, productID, purchaseDate);
         cp.setPaid(paid);
         return cp;
     }
 
-    public ArrayList<CustomerProduct> returnAllRecords() {
-        return this.records;
-    }
-
+    
+   @Override
     public boolean contains(String key) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         for (CustomerProduct x : records) {
-            String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(formatter);
+            String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(DATE_FORMATTER);
             if (xString.equals(key)) {
                 return true;
             }
         }
         return false;
     }
-
+   @Override
     public CustomerProduct getRecord(String key) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         for (CustomerProduct x : records) {
-            String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(formatter);
+            String xString = x.getCustomerSSN() + "," + x.getProductID() + "," + x.getPurchaseDate().format(DATE_FORMATTER);
             if (xString.equals(key)) {
                 return x;
             }
